@@ -1,0 +1,3 @@
+rootProject.name = 'BookTalk'
+
+include ':app'

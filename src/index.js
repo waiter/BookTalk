@@ -9,38 +9,41 @@ import {
   StyleSheet,
   Text,
   View,
-  ListView
+  TouchableOpacity,
 } from 'react-native';
+import FetchUtil from './base/fetch';
+import {Scene, Router, Reducer, ActionConst, Actions} from 'react-native-router-flux';
+import Register from './scenes/Register';
+import Login from './scenes/Login';
+import Constant from './base/Constant';
+
+const getSceneStyle = function (props, computedProps) {
+  const style = {
+    flex: 1,
+    backgroundColor: Constant.colors.background
+  };
+  if (computedProps.isActive) {
+    style.marginTop = computedProps.hideNavBar ? 0 : Constant.size.topBar;
+  }
+  return style;
+};
 
 class BookTalk extends Component {
+
+  onClick() {
+    // FetchUtil.fetchGet('http://localhost:8080/index.php/rank/data/A_1_XX_1000');
+    FetchUtil.fetchPost('http://localhost:8080/index.php/booktalk/register', {t: 22, yuy: 'xiji'});
+  }
+
   render() {
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    let dd = ds.cloneWithRows([1,2,3,4,5,6,6,1,213,123]);
-    console.log('渲染');
-    return(
-      <ListView
-        style = {{flex:1,backgroundColor:'green'}}
-        dataSource = {dd}
-        renderRow = {(data) =>
-          <View style={{height:100,backgroundColor:'red',borderBottomWidth: 1,borderBottomColor: '#000'}}>
-            <Text>{data}</Text>
-          </View>
-        }
-      />
-    );
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Router
+        getSceneStyle={getSceneStyle}
+        hideNavBar={false}
+      >
+        <Scene key="login" component={Login} title="Login" hideNavBar initial={true}/>
+        <Scene key="register" component={Register} title="Register"/>
+      </Router>
     );
   }
 }

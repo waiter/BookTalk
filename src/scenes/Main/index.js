@@ -49,7 +49,6 @@ class Login extends BindComponent {
     if (value) {
       console.log(value);
       this.doLogin(value);
-      // Actions.tabbar();
     } else {
       console.log('gggg');
     }
@@ -57,8 +56,7 @@ class Login extends BindComponent {
 
   async doLogin(value) {
     try {
-      // const data = await Net.login(value);
-      const data = await Net.searchBook('北方');
+      const data = await Net.login(value);
       console.log(data);
     } catch(e) {
       console.log(`error-x: ${e}`);

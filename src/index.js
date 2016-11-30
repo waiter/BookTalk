@@ -28,6 +28,14 @@ const getSceneStyle = function (props, computedProps) {
   return style;
 };
 
+class TabIcon extends React.Component {
+    render(){
+        return (
+            <Text style={{color: this.props.selected ? 'red' :'black'}}>{this.props.title}</Text>
+        );
+    }
+}
+
 class BookTalk extends Component {
 
   onClick() {
@@ -43,6 +51,11 @@ class BookTalk extends Component {
       >
         <Scene key="login" component={Login} title="Login" hideNavBar initial={true}/>
         <Scene key="register" component={Register} title="Register"/>
+        <Scene key="tabbar" tabs={true}>
+          <Scene key="tabMain" title="丢书" component={Login} icon={TabIcon} hideBackImage={true}/>
+          <Scene key="tabTalk" title="丢书" component={Login} icon={TabIcon} hideBackImage={true}/>
+          <Scene key="tabMe" title="丢书" component={Login} icon={TabIcon} hideBackImage={true}/>
+        </Scene>
       </Router>
     );
   }

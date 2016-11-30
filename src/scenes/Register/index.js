@@ -47,8 +47,7 @@ class Register extends BindComponent {
 
   async doRegister(value) {
     try {
-      console.log(value);
-      const data = Net.register(value);
+      const data = await Net.register(value);
       console.log(data);
     } catch (e) {
       console.log(`error: ${e}`);

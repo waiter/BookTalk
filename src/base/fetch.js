@@ -28,19 +28,16 @@ const net = {
     .then(res => res.json())
     .then(json => console.log(json));
   },
-  fetchPost: function(url, data) {
+  post: async function(url, data) {
     const ck = makeCK(data, net.token, net.salt);
-    console.log(ck);
-    fetch(`${url}?ck=${ck}`, {
+    const response = await fetch(`${url}?ck=${ck}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(json => console.log(json));
+    }).then(res => res.json());
   },
   postWithoutToken: async function(url, data) {
     const ck = makeCK(data, '', net.salt);
@@ -52,7 +49,6 @@ const net = {
       },
       body: JSON.stringify(data)
     });
-    console.log(response);
     const re = await response.json();
     console.log(re);
     return re;
